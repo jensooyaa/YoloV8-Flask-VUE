@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 
+# 图像数据 模型 文件扩展名
 def predict(image_data, model, file_ext):
     # 直接调用模型进行预测
     results = model(image_data)
@@ -9,6 +10,7 @@ def predict(image_data, model, file_ext):
     pred_boxes = []
     count = 0
     image_info = {}
+    # 解析预测结果
     for box in det:
         x1, y1, x2, y2 = box.xyxy[0].astype(int)
         conf = box.conf[0]

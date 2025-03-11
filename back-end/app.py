@@ -6,7 +6,7 @@ from datetime import timedelta
 from flask import *
 from ultralytics import YOLO  # 导入 YOLOv8 模型类
 import core.main
-
+# 配置falsk应用
 UPLOAD_FOLDER = r'./uploads'
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg'])
@@ -41,6 +41,7 @@ def hello_world():
 
 
 @app.route('/upload', methods=['GET', 'POST'])
+# 处理上传文件
 def upload_file():
     file = request.files['file']
     print(datetime.datetime.now(), file.filename)
@@ -61,6 +62,7 @@ def upload_file():
     return jsonify({'status': 0})
 
 
+# 处理下载文件
 @app.route("/download", methods=['GET'])
 def download_file():
     # 需要知道2个参数, 第1个参数是本地目录的path, 第2个参数是文件名(带扩展名)
@@ -68,6 +70,7 @@ def download_file():
 
 
 # show photo
+# 根据请求的文件路径返回图片数据
 @app.route('/tmp/<path:file>', methods=['GET'])
 def show_photo(file):
     if request.method == 'GET':

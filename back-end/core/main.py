@@ -14,6 +14,7 @@ def c_main(path, model, ext):
     pred_boxes = []
     count = 0
     image_info = {}
+    # 解析预测结果
     for box in det:
         x1, y1, x2, y2 = box.xyxy[0].astype(int)
         conf = box.conf[0]
