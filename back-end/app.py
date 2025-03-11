@@ -4,8 +4,7 @@ import os
 import shutil
 from datetime import timedelta
 from flask import *
-from processor.AIDetector_pytorch import Detector
-
+from ultralytics import YOLO  # 导入 YOLOv8 模型类
 import core.main
 
 UPLOAD_FOLDER = r'./uploads'
@@ -50,10 +49,12 @@ def upload_file():
         file.save(src_path)
         shutil.copy(src_path, './tmp/ct')
         image_path = os.path.join('./tmp/ct', file.filename)
+        # 使用 YOLOv8 模型进行预测
         pid, image_info = core.main.c_main(
             image_path, current_app.model, file.filename.rsplit('.', 1)[1])
+        # 返回图片的url
         return jsonify({'status': 1,
-                        'image_url': 'http://127.0.0.1:5003/tmp/ct/' + pid,
+                        'image_url': 'http://127.0.0.1:5003/tmp/ct/' + file.filename,
                         'draw_url': 'http://127.0.0.1:5003/tmp/draw/' + pid,
                         'image_info': image_info})
 
@@ -79,5 +80,6 @@ def show_photo(file):
 
 if __name__ == '__main__':
     with app.app_context():
-        current_app.model = Detector()
+        # 初始化 YOLOv8 模型
+        current_app.model = YOLO('yolov8m.pt')  # 可以根据需要选择不同的预训练模型
     app.run(host='127.0.0.1', port=5003, debug=True)
