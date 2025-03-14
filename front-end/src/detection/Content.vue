@@ -1,59 +1,28 @@
 <template>
   <div id="Content">
-    <el-dialog
-      title="AI预测中"
-      :visible.sync="dialogTableVisible"
-      :show-close="false"
-      :close-on-press-escape="false"
-      :append-to-body="true"
-      :close-on-click-modal="false"
-      :center="true"
-    >
+    <el-dialog title="AI预测中" :visible.sync="dialogTableVisible" :show-close="false" :close-on-press-escape="false"
+      :append-to-body="true" :close-on-click-modal="false" :center="true">
       <el-progress :percentage="percentage"></el-progress>
       <span slot="footer" class="dialog-footer">请耐心等待约3秒钟</span>
     </el-dialog>
 
     <div id="CT">
       <div id="CT_image">
-        <el-card
-          id="CT_image_1"
-          class="box-card"
-          style="
+        <el-card id="CT_image_1" class="box-card" style="
             border-radius: 8px;
             width: 800px;
             height: 360px;
             margin-bottom: -30px;
-          "
-        >
+          ">
           <div class="demo-image__preview1">
-            <div
-              v-loading="loading"
-              element-loading-text="上传图片中"
-              element-loading-spinner="el-icon-loading"
-            >
-              <el-image
-                :src="url_1"
-                class="image_1"
-                :preview-src-list="srcList"
-                style="border-radius: 3px 3px 0 0"
-              >
+            <div v-loading="loading" element-loading-text="上传图片中" element-loading-spinner="el-icon-loading">
+              <el-image :src="url_1" class="image_1" :preview-src-list="srcList" style="border-radius: 3px 3px 0 0">
                 <div slot="error">
                   <div slot="placeholder" class="error">
-                    <el-button
-                      v-show="showbutton"
-                      type="primary"
-                      icon="el-icon-upload"
-                      class="download_bt"
-                      v-on:click="true_upload"
-                    >
+                    <el-button v-show="showbutton" type="primary" icon="el-icon-upload" class="download_bt"
+                      v-on:click="true_upload">
                       上传图像
-                      <input
-                        ref="upload"
-                        style="display: none"
-                        name="file"
-                        type="file"
-                        @change="update"
-                      />
+                      <input ref="upload" style="display: none" name="file" type="file" @change="update" />
                     </el-button>
                   </div>
                 </div>
@@ -64,17 +33,8 @@
             </div>
           </div>
           <div class="demo-image__preview2">
-            <div
-              v-loading="loading"
-              element-loading-text="处理中,请耐心等待"
-              element-loading-spinner="el-icon-loading"
-            >
-              <el-image
-                :src="url_2"
-                class="image_1"
-                :preview-src-list="srcList1"
-                style="border-radius: 3px 3px 0 0"
-              >
+            <div v-loading="loading" element-loading-text="处理中,请耐心等待" element-loading-spinner="el-icon-loading">
+              <el-image :src="url_2" class="image_1" :preview-src-list="srcList1" style="border-radius: 3px 3px 0 0">
                 <div slot="error">
                   <div slot="placeholder" class="error">{{ wait_return }}</div>
                 </div>
@@ -91,37 +51,17 @@
         <el-card style="border-radius: 8px">
           <div slot="header" class="clearfix">
             <span>检测目标</span>
-            <el-button
-              style="margin-left: 35px"
-              v-show="!showbutton"
-              type="primary"
-              icon="el-icon-upload"
-              class="download_bt"
-              v-on:click="true_upload2"
-            >
+            <el-button style="margin-left: 35px" v-show="!showbutton" type="primary" icon="el-icon-upload"
+              class="download_bt" v-on:click="true_upload2">
               重新选择图像
-              <input
-                ref="upload2"
-                style="display: none"
-                name="file"
-                type="file"
-                @change="update"
-              />
+              <input ref="upload2" style="display: none" name="file" type="file" @change="update" />
             </el-button>
           </div>
           <el-tabs v-model="activeName">
             <el-tab-pane label="检测到的目标" name="first">
               <!-- 表格存放特征值 -->
-              <el-table
-                :data="feature_list"
-                height="390"
-                border
-                style="width: 750px; text-align: center"
-                v-loading="loading"
-                element-loading-text="数据正在处理中，请耐心等待"
-                element-loading-spinner="el-icon-loading"
-                lazy
-              >
+              <el-table :data="feature_list" height="390" border style="width: 750px; text-align: center"
+                v-loading="loading" element-loading-text="数据正在处理中，请耐心等待" element-loading-spinner="el-icon-loading" lazy>
                 <el-table-column label="目标类别" width="250px">
                   <template slot-scope="scope">
                     <span>{{ scope.row[2] }}</span>
@@ -264,7 +204,7 @@ export default {
         this.percentage = 99;
       }
     },
-    drawChart() {},
+    drawChart() { },
     notice1() {
       this.$notify({
         title: "预测成功",
@@ -346,7 +286,7 @@ export default {
   justify-content: center;
   margin: 0 auto;
   margin-right: 0px;
-  max-width: 1800px;
+  /* max-width: 1800px; */
 }
 
 #CT_image_1 {
@@ -458,7 +398,8 @@ div {
   -moz-opacity: 0;
   -ms-opacity: 0;
   -webkit-opacity: 0;
-  opacity: 0; /*css属性&mdash;&mdash;opcity不透明度，取值0-1*/
+  opacity: 0;
+  /*css属性&mdash;&mdash;opcity不透明度，取值0-1*/
   filter: alpha(opacity=0);
   cursor: pointer;
 }
@@ -513,5 +454,3 @@ div {
   margin-right: 160px;
 }
 </style>
-
-
