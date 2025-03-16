@@ -15,6 +15,7 @@ export default {
     background-color: #21B3B9;
     padding: 10px;
     text-align: center;
+    /* background-image: url(../assets/image.png); */
 
     h1 {
         color: white;

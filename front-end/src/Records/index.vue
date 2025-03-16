@@ -1,16 +1,16 @@
 <template>
     <div>
-        记录管理
+        <RecordLists />
     </div>
 </template>
 
 <script>
-
+import RecordLists from './RecordLists.vue';
 
 export default {
     name: 'Records',
     components: {
-
+        RecordLists
     }
 };
 </script>

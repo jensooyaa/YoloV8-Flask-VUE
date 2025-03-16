@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Content from "./Content.vue";
+import Content from "./Content";
 export default {
   name: "detection",
   data() {

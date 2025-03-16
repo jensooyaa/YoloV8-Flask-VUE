@@ -60,7 +60,7 @@
           <el-tabs v-model="activeName">
             <el-tab-pane label="检测到的目标" name="first">
               <!-- 表格存放特征值 -->
-              <el-table :data="feature_list" height="390" border style="width: 750px; text-align: center"
+              <el-table :data="feature_list" height="250px" border style="width: 750px; text-align: center"
                 v-loading="loading" element-loading-text="数据正在处理中，请耐心等待" element-loading-spinner="el-icon-loading" lazy>
                 <el-table-column label="目标类别" width="250px">
                   <template slot-scope="scope">
@@ -88,7 +88,7 @@
 
 <script>
 import axios from "axios";
-
+import { eventBus } from '../eventBus.js';
 export default {
   name: "Content",
   data() {
@@ -119,11 +119,11 @@ export default {
         opacity: 0,
       },
       dialogTableVisible: false,
+      //所有记录
+      recordsList: []
     };
   },
-  created: function () {
-    document.title = "YOLOv5目标检测WEB端";
-  },
+
   methods: {
     true_upload() {
       this.$refs.upload.click();
@@ -177,9 +177,31 @@ export default {
           this.percentage = 100;
           clearInterval(timer);
           this.url_1 = response.data.image_url;
+          console.log("this.url_1", this.url_1)
           this.srcList.push(this.url_1);
           this.url_2 = response.data.draw_url;
           this.srcList1.push(this.url_2);
+
+          const id = new Date();
+          const origin = this.url_1;
+          const srcList1 = [this.url_1];
+          const decection = this.url_2;
+          const srcList2 = [this.url_2];
+          const type = "YoloV8";
+          const details = "查看"
+          const item = {
+            id,
+            origin,
+            srcList1,
+            decection,
+            srcList2,
+            type,
+            details
+          }
+          this.recordsList.push(item)
+
+          console.log(" this.recordsList", this.recordsList)
+
           this.fullscreenLoading = false;
           this.loading = false;
 
@@ -213,6 +235,18 @@ export default {
         type: "success",
       });
     },
+
+  },
+  watch: {
+    recordsList(newValue, oldValue) {
+      localStorage.setItem('recordsList', JSON.stringify(this.recordsList));
+    }
+  },
+  created() {
+    const storedData = localStorage.getItem('recordsList');
+    if (storedData) {
+      this.recordsList = JSON.parse(storedData);
+    }
   },
   mounted() {
     this.drawChart();
@@ -416,6 +450,8 @@ div {
   margin: 15px auto;
   display: flex;
   min-width: 1200px;
+  background-color: #faf3f3;
+
 }
 
 .divider {
@@ -452,5 +488,6 @@ div {
 #info_patient {
   margin-top: 10px;
   margin-right: 160px;
+  /* display: none; */
 }
 </style>

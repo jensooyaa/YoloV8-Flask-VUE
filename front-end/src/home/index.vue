@@ -3,7 +3,7 @@
       <TopNav class="TopNav" />
       <div class="main-layout">
          <LeftNav style="height: 100%;" />
-         <router-view style="flex: 1;" />
+         <router-view class="body" />
       </div>
    </div>
 </template>
@@ -39,5 +39,11 @@ export default {
 .main-layout {
    display: flex;
    height: calc(100vh - 100px);
+}
+
+.body {
+   flex: 1;
+   background-color: #faf3f3;
+   /* background-image: url(../assets/1.png); */
 }
 </style>
