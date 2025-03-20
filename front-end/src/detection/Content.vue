@@ -44,8 +44,12 @@
               <span style="color: white; letter-spacing: 4px">检测结果</span>
             </div>
           </div>
+
         </el-card>
+
+
       </div>
+
       <div id="info_patient">
         <!-- 卡片放置表格 -->
         <el-card style="border-radius: 8px">
@@ -88,7 +92,6 @@
 
 <script>
 import axios from "axios";
-import { eventBus } from '../eventBus.js';
 export default {
   name: "Content",
   data() {
@@ -182,26 +185,6 @@ export default {
           this.url_2 = response.data.draw_url;
           this.srcList1.push(this.url_2);
 
-          const id = new Date();
-          const origin = this.url_1;
-          const srcList1 = [this.url_1];
-          const decection = this.url_2;
-          const srcList2 = [this.url_2];
-          const type = "YoloV8";
-          const details = "查看"
-          const item = {
-            id,
-            origin,
-            srcList1,
-            decection,
-            srcList2,
-            type,
-            details
-          }
-          this.recordsList.push(item)
-
-          console.log(" this.recordsList", this.recordsList)
-
           this.fullscreenLoading = false;
           this.loading = false;
 
@@ -213,10 +196,38 @@ export default {
           }
 
           this.feature_list.push(response.data.image_info);
+          console.log("feature_list", this.feature_list)
           this.feature_list_1 = this.feature_list[0];
           this.dialogTableVisible = false;
           this.percentage = 0;
           this.notice1();
+
+          const id = this.formatDate(new Date());
+          const origin = this.url_1;
+          const srcList1 = [this.url_1];
+          const decection = this.url_2;
+          const srcList2 = [this.url_2];
+          const type = "YoloV11";
+          const details = "查看";
+          const feature_list = this.feature_list;
+          const item = {
+            id,
+            origin,
+            srcList1,
+            decection,
+            srcList2,
+            type,
+            details,
+            feature_list
+          }
+          this.recordsList.push(item)
+          // 每次添加后按id时间倒序排序
+          this.recordsList.sort((a, b) => {
+            const dateA = new Date(a.id);
+            const dateB = new Date(b.id);
+            return dateB - dateA;
+          });
+          console.log("this.recordsList", this.recordsList)
         });
     },
     myFunc() {
@@ -235,17 +246,33 @@ export default {
         type: "success",
       });
     },
+    formatDate(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const seconds = String(date.getSeconds()).padStart(2, '0');
+
+      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
 
   },
   watch: {
     recordsList(newValue, oldValue) {
       localStorage.setItem('recordsList', JSON.stringify(this.recordsList));
     }
+
   },
   created() {
     const storedData = localStorage.getItem('recordsList');
     if (storedData) {
       this.recordsList = JSON.parse(storedData);
+      this.recordsList.sort((a, b) => {
+        const dateA = new Date(a.id);
+        const dateB = new Date(b.id);
+        return dateB - dateA;
+      });
     }
   },
   mounted() {

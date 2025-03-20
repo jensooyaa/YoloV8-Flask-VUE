@@ -1,6 +1,6 @@
 <template>
     <div class="top-nav">
-        <h1>基于YoloV8的无人机目标检测系统</h1>
+        <h1>基于YoloV11的无人机目标检测系统</h1>
     </div>
 </template>
 
