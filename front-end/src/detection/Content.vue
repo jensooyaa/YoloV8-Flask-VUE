@@ -180,7 +180,7 @@ export default {
           this.percentage = 100;
           clearInterval(timer);
           this.url_1 = response.data.image_url;
-          console.log("this.url_1", this.url_1)
+          // console.log("this.url_1", this.url_1)
           this.srcList.push(this.url_1);
           this.url_2 = response.data.draw_url;
           this.srcList1.push(this.url_2);
@@ -196,7 +196,7 @@ export default {
           }
 
           this.feature_list.push(response.data.image_info);
-          console.log("feature_list", this.feature_list)
+          // console.log("feature_list", this.feature_list)
           this.feature_list_1 = this.feature_list[0];
           this.dialogTableVisible = false;
           this.percentage = 0;
@@ -227,7 +227,7 @@ export default {
             const dateB = new Date(b.id);
             return dateB - dateA;
           });
-          console.log("this.recordsList", this.recordsList)
+          // console.log("this.recordsList", this.recordsList) 
         });
     },
     myFunc() {
@@ -242,7 +242,7 @@ export default {
       this.$notify({
         title: "预测成功",
         message: "点击图片可以查看大图",
-        duration: 0,
+        duration: 2000,
         type: "success",
       });
     },
@@ -259,7 +259,7 @@ export default {
 
   },
   watch: {
-    recordsList(newValue, oldValue) {
+    recordsList() {
       localStorage.setItem('recordsList', JSON.stringify(this.recordsList));
     }
 
@@ -478,7 +478,11 @@ div {
   display: flex;
   min-width: 1200px;
   background-color: #faf3f3;
-
+  /* background-image: url(../assets/preview-0002.jpg); */
+  /* 背景图片居中 */
+  background-position: center;
+  /* 背景图片不重复 */
+  background-repeat: no-repeat;
 }
 
 .divider {

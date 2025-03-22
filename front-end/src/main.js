@@ -11,9 +11,13 @@ Vue.prototype.$echarts = echarts;
 import '../node_modules/element-ui/lib/theme-chalk/index.css'
 import '../src/assets/style.css'
 import './theme/index.css'
-import ElementUI from 'element-ui';
+// import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+// import ElementPlus from 'element-plus'
+// import 'element-plus/dist/index.css'
 Vue.use(Element)
+// Vue.use(ElementPlus)
+
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.prototype.$http = axios

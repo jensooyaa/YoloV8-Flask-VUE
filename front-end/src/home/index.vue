@@ -44,6 +44,6 @@ export default {
 .body {
    flex: 1;
    background-color: #faf3f3;
-   /* background-image: url(../assets/1.png); */
+   /* background-image: url(../assets/preview-0002.jpg); */
 }
 </style>
